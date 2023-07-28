@@ -1,0 +1,85 @@
+﻿@model IEnumerable<UserAuthCaller.Models.UserData>
+
+@{
+    ViewData["Title"] = "GetAllUsers";
+}
+
+<div class="container">
+    @if (ViewBag.ToastMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.ToastMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+</div>
+
+<h1>Get All Users</h1>
+
+<p>
+    <a asp-action="CreateUser" asp-controller="Create" class="btn btn-primary">Create New User</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>GUID</th>
+                <th>Designation</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.userName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.age)</td>
+                    <td>@Html.DisplayFor(modelItem => item.email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.phonenumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.guid)</td>
+                    <td>@Html.DisplayFor(modelItem => item.designation)</td>
+                    <td>@Html.DisplayFor(modelItem => item.status)</td>
+                    <td>
+
+                        <div class="btn-group" role="group">
+                            <form id="editForm" action="@Url.Action("AdminUpdateUser1", "Update")" method="post">
+                                <input type="hidden" name="action" value="update" />
+                                @Html.Hidden("id", item.id)
+                                @Html.Hidden("userName", item.userName)
+                                @Html.Hidden("age", item.age)
+                                @Html.Hidden("name", item.name)
+                                @Html.Hidden("email", item.email)
+                                @Html.Hidden("phonenumber", item.phonenumber)
+                                @Html.Hidden("designation", item.designation)
+                                @Html.Hidden("status", item.status)
+
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-primary btn-sm m" style="margin-right: 5px;">
+                                    Update
+                                </button>
+                            </form>
+                            <form id="deleteForm" action="@Url.Action("AdminDeleteUser1", "Delete")" method="post">
+                                <input type="hidden" name="action" value="delete" />
+                                @Html.Hidden("id", item.id)
+                                @Html.Hidden("password", item.password)
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm" style="margin-right: 5px;">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<UserAuthCaller.Models.UserData>
+
+@{
+    ViewData["Title"] = "GetAllUsers";
+}
+
+<h1>Get All Users</h1>
+
+<p>
+    <a asp-action="CreateUser" class="btn btn-primary">Create New User</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>GUID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.userName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.age)</td>
+                    <td>@Html.DisplayFor(modelItem => item.email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.phonenumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.guid)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UserAuthCaller</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap1.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/UserAuthCaller.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Login">ADMIN</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Login" title="Home">
+                                <i class="bi bi-house-fill"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="UserDataMvc" asp-action="Privacy" title="Privacy Policy">
+                                <i class="bi bi-shield-fill-exclamation"></i> Privacy
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="UserDataMvc"  asp-action="GetAllUser" title="All Users">
+                                <i class="bi bi-people-fill"></i> Users
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Wrap the dropdown li element with a div and apply ms-auto class -->
+                    <div class="ms-auto">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false" title="User Actions">
+                                    <img src="\profile.jpg" style="width: 50px; height: 50px; border-radius: 70%;">
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li>
+                                        <form action="@Url.Action("UpdateUser1", "Update")" method="post">
+                                            <input type="hidden" name="id" value="@Model.id" />
+                                            <input type="hidden" name="userName" value="@Model.userName" />
+                                            <input type="hidden" name="age" value="@Model.age" />
+                                            <input type="hidden" name="name" value="@Model.name" />
+                                            <input type="hidden" name="email" value="@Model.email" />
+                                            <input type="hidden" name="phonenumber" value="@Model.phonenumber" />
+                                            <input type="hidden" name="designation" value="@Model.designation" />
+                                            <input type="hidden" name="status" value="@Model.status" />
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-person-badge"></i> Edit Profile
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="@Url.Action("UpdatePassword1", "Update")" method="post">
+                                            <input type="hidden" name="id" value="@Model.id" />
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-key-fill"></i> Change Password
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="@Url.Action("DeleteUser1", "Delete")" method="post">
+                                            <input type="hidden" name="id" value="@Model.id" />
+                                            <input type="hidden" name="password" value="@Model.password" />
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-trash-fill"></i> Delete Profile
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="@Url.Action("Logout", "Logout")">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-arrow-left-square-fill"></i> Logout
+                                            </button>
+                                        </form>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - MY LOGIN APP - <a asp-area="" asp-controller="UserDataMvc" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
